@@ -8,7 +8,7 @@ ini_set('display_errors', '1');
 
 require_once __DIR__ . "/app/Core/Database.php";
 
-// 2. Charger les INTERFACES (Darouriya 9bel Task)
+// 2. Charger les INTERFACES )
 require_once __DIR__ . "/app/Interfaces/Assignable.php";
 require_once __DIR__ . "/app/Interfaces/Prioritizable.php";
 require_once __DIR__ . "/app/Interfaces/Commentable.php";
@@ -23,7 +23,6 @@ require_once __DIR__ . "/app/Entities/Manager.php";
 require_once __DIR__ . "/app/Entities/FeatureTask.php";
 require_once __DIR__ . "/app/Entities/BugTask.php";
 
-// Utilisation des Namespaces bach PHP i-3raf l-classe fine kayna
 use App\Core\Database;
 use App\Entities\Developer;
 use App\Entities\Manager;
@@ -49,6 +48,9 @@ try {
     
     if ($developer instanceof \App\Entities\TeamMember) echo "   ✅ PASS: Developer extends TeamMember\n";
     echo "   Developer can create project: " . ($developer->canCreateProject() ? 'Yes' : 'No') . " (Expected: No)\n";
+    foreach($developer->getRolePermissions() as $role){ 
+    echo "   Developer get Role Permissions project: " . (  $role  ) . " (Expected: work_on_tasks)\n";
+}
 } catch (Exception $e) { echo "   ❌ FAIL: " . $e->getMessage() . "\n"; }
 
 // --- TEST 3: Task Hierarchy ---
@@ -66,3 +68,7 @@ try {
 } catch (Error $e) { echo "   ✅ PASS: Cannot instantiate abstract class\n"; }
 
 echo "\n=== VALIDATION COMPLETE ===\n";
+
+
+// test4
+
