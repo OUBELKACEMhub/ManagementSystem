@@ -1,4 +1,5 @@
 <?php
+namespace App\Entities;
 class Tester extends TeamMember {
     
 public function __construct($id,$username,$password,$description,$teamId,$createdAt){

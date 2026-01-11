@@ -1,5 +1,5 @@
 <?php
-namespace App\Entities;
+namespace  App\Entities;
 
 abstract class TeamMember
 {
@@ -13,7 +13,7 @@ abstract class TeamMember
     public function __construct(string $username, string $email, string $password, int $teamId) {
         $this->username = $username;
         $this->email = $email;
-        $this->$password=$password;
+        $this->password=$password;
         $this->teamId = $teamId;
     }
 
