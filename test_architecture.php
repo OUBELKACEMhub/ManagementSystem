@@ -6,32 +6,29 @@ ini_set('display_errors', '1');
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-// Importations précises pour éviter les erreurs "Class not found"
+require_once __DIR__ . "/app/Core/Database.php";
+
+// 2. Charger les INTERFACES (Darouriya 9bel Task)
+require_once __DIR__ . "/app/Interfaces/Assignable.php";
+require_once __DIR__ . "/app/Interfaces/Prioritizable.php";
+require_once __DIR__ . "/app/Interfaces/Commentable.php";
+
+// 3. Charger les CLASSES PARENTES (Abstract)
+require_once __DIR__ . "/app/Entities/TeamMember.php";
+require_once __DIR__ . "/app/Entities/Task.php";
+
+// 4. Charger les CLASSES CONCRÈTES (Enfants)
+require_once __DIR__ . "/app/Entities/Developer.php";
+require_once __DIR__ . "/app/Entities/Manager.php";
+require_once __DIR__ . "/app/Entities/FeatureTask.php";
+require_once __DIR__ . "/app/Entities/BugTask.php";
+
+// Utilisation des Namespaces bach PHP i-3raf l-classe fine kayna
 use App\Core\Database;
 use App\Entities\Developer;
 use App\Entities\Manager;
 use App\Entities\FeatureTask;
 use App\Entities\BugTask;
-
-// 1. Noyau
-require_once __DIR__ . "/app/Core/Database.php";
-
-// 2. Interfaces (Indispensables pour Task)
-require_once __DIR__ . "/app/Interfaces/Assignable.php";
-require_once __DIR__ . "/app/Interfaces/Prioritizable.php";
-require_once __DIR__ . "/app/Interfaces/Commentable.php";
-
-// 3. Classes Abstraites (Parents)
-require_once __DIR__ . "/app/Entities/TeamMember.php";
-require_once __DIR__ . "/app/Entities/Task.php"; // <--- Il manquait celui-là
-
-// 4. Classes Concrètes (Enfants)
-require_once __DIR__ . "/app/Entities/Developer.php";
-require_once __DIR__ . "/app/Entities/Manager.php";
-require_once __DIR__ . "/app/Entities/BugTask.php";
-require_once __DIR__ . "/app/Entities/FeatureTask.php";
-
-
 echo "=== TASKFLOW PART 1: ARCHITECTURE VALIDATION ===\n\n";
 
 // --- TEST 1: Singleton ---
@@ -54,18 +51,18 @@ try {
     echo "   Developer can create project: " . ($developer->canCreateProject() ? 'Yes' : 'No') . " (Expected: No)\n";
 } catch (Exception $e) { echo "   ❌ FAIL: " . $e->getMessage() . "\n"; }
 
-// --- TEST 3: Tasks ---
+// --- TEST 3: Task Hierarchy ---
 echo "\n3. Testing Task Hierarchy:\n";
 try {
-    $feature = new FeatureTask("Login", "Desc", 1, 1);
+    $feature = new FeatureTask("Login", 1, 1,"Desc");
     if ($feature instanceof \App\Entities\Task) echo "   ✅ PASS: FeatureTask extends Task\n";
     if ($feature instanceof \App\Interfaces\Assignable) echo "   ✅ PASS: Implements Assignable\n";
-} catch (Exception $e) { echo "   ❌ FAIL: " . $e->getMessage() . "\n"; }
+} catch (Exception $e) { echo "   ❌ FAIL: " . $e->getMessage() . "\n"; 
+}
+// --- TEST 4: Abstract Check ---
+echo "\n4. Testing Abstract Prevention:\n";
+try {
+    $task = new \App\Entities\Task("Error", "Error", 1, 1);
+} catch (Error $e) { echo "   ✅ PASS: Cannot instantiate abstract class\n"; }
 
-// // --- TEST 4: Abstract Check ---
-// echo "\n4. Testing Abstract Prevention:\n";
-// try {
-//     $task = new \App\Entities\Task("Error", "Error", 1, 1);
-// } catch (Error $e) { echo "   ✅ PASS: Cannot instantiate abstract class\n"; }
-
-// echo "\n=== VALIDATION COMPLETE ===\n";
+echo "\n=== VALIDATION COMPLETE ===\n";

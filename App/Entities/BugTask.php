@@ -1,12 +1,7 @@
 <?php
 
-namespace App\Entities\Task;
-require_once __DIR__."App/Entities/Task.php";
-require_once __DIR__."App/Interfaces/Assignable.php";
-require_once __DIR__."App/Interfaces/Prioritizable.php";
-require_once __DIR__."App/Interfaces/Commentable.php";
-
-class BugTask extends Task implements Assignable, Prioritizable, Commentable {
+namespace App\Entities;
+class BugTask extends Task  {
    
 
 public function __construct( $title, $projectId,  $reporterId,$description=null,   $priority = 'medium',  $status = 'todo',  $estimatedHours = null,  $dueDate = null){   

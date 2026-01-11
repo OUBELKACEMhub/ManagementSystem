@@ -1,14 +1,7 @@
 <?php
 namespace App\Entities;
 
-
-require_once __DIR__."App/Entities/Task.php";
-require_once __DIR__."App/Interfaces/Assignable.php";
-require_once __DIR__."App/Interfaces/Prioritizable.php";
-require_once __DIR__."App/Interfaces/Commentable.php";
-
-
-class FeatureTask extends Task  implements Assignable, Prioritizable, Commentable {
+class FeatureTask extends Task {
 
 public function __construct( $title, $projectId,  $reporterId,$description=null,   $priority = 'medium',  $status = 'todo',  $estimatedHours = null,  $dueDate = null){   
   parent:: __construct( $title, $projectId,  $reporterId,$description=null,   $priority = 'medium',  $status = 'todo',  $estimatedHours = null,  $dueDate = null);   
